@@ -1,21 +1,12 @@
-<!--<div class="container">
-  <div>
-    <p *ngFor="let listMSG of list"><span>{{listMSG.name}} {{listMSG.message}}</span></p>
-    <p  *ngFor="let msg of messageService.msg><span>{{msg}}</span></p>
-  </div>
-  <input class="form-control" type="text" placeholder="message" [(ngModel)]="input" #message>
-  <button class="btn btn-primary" (click)="sendMessage()">Send</button>
-</div>-->
-
 <div class="chat_window">
   <div class="top_menu">
     <div class="buttons">
 
     </div>
-    <div class="title">Chat</div>
+    <div class="title">Chat: {{room}}</div>
   </div>
   <ul class="messages">
-    <!--<div class="card" *ngFor="let listMSG of list"><div class="card-body"><b><i>{{listMSG.time}}</i> <b> {{listMSG.name}}:</b></b> {{listMSG.message}}</div></div>-->
+    <div class="card" *ngFor="let listMSG of list"><div class="card-body"><b><i>{{listMSG.time}}</i> <b> {{listMSG.name}}:</b></b> {{listMSG.message}}</div></div>
     <div class="card" *ngFor="let message of sesList"><div class="card-body"><b><i>{{message.time}}</i> <b> {{message.name}}:</b></b> {{message.message}}</div></div>
   </ul>
   <div class="bottom_wrapper clearfix">
@@ -27,14 +18,3 @@
     </div>
   </div>
 </div>
-
-<!--<input class="form-control" type="text" placeholder="message" [(ngModel)]="input">
-<button class="btn btn-success" (click)="sendMessage()">Send</button>
-<div class="content">
-  <div *ngFor="let listMSG of list">
-    {{listMSG.name}}: {{listMSG.message}}
-  </div>
-  <div *ngFor="let msg of messageService.msg">
-    {{msg}}
-  </div>
-</div>-->
