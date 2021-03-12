@@ -32,7 +32,6 @@ export class WebSocketService {
 
   sendMessage(name:string, message:string, room:string) {
     const dto = new ChatMessageDto(null, name, message,null, room)
-    console.log(JSON.stringify(dto))
     this.stompClient.send("/app/send/message/", {}, JSON.stringify(dto));
   }
 
