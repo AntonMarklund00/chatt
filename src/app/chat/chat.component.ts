@@ -11,6 +11,7 @@ import {HttpClient} from "@angular/common/http";
 export class ChatComponent implements OnInit {
 
   list: any;
+  room: string = sessionStorage.getItem("room")
   @ViewChild("message") message: ElementRef;
   @Input() username: string;
   sesList:ChatMessageDto[] = this.messageService.msg;
@@ -21,7 +22,7 @@ export class ChatComponent implements OnInit {
   }
   sendMessage() {
     if (this.input) {
-      this.messageService.sendMessage(this.username, this.input, sessionStorage.getItem("room"));
+      this.messageService.sendMessage(this.username, this.input, this.room);
       this.input = '';
     }
   }
