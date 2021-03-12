@@ -94,10 +94,7 @@ public class ChatService {
     return false;
   }
 
-	/*
-	 * Get 5 latest messages
-	 * todo: from certain room
-	 */
+
 	public List<Chat> getFiveLatestChat(){
 		Pageable pageable = PageRequest.of(0, 5, Sort.by(Order.desc("id")));
 
@@ -124,14 +121,14 @@ public class ChatService {
     MethodsClient methods = slack.methods(token);
     ChatPostMessageRequest request = ChatPostMessageRequest.builder()
       .channel("#chat")
-      .username(message.getName())
+      .username(message.getName() + ": " + message.getRoom())
       .text(message.getMessage())
       .build();
 
     try {
       ChatPostMessageResponse response = slack.methods(token).chatPostMessage(req -> req
         .channel("#chat")
-        .username(message.getName())
+        .username(message.getName() + ": " + message.getRoom())
         .text(message.getMessage()));
     } catch (IOException e) {
       e.printStackTrace();
@@ -150,14 +147,15 @@ public class ChatService {
 
       @Override
       public void onMessagePosted(SlackletRequest req, SlackletResponse resp) {
-
         // get message content
         String content = req.getContent();
         if(content.startsWith("%")){
           String displayC = content.replaceFirst("%", "");
           TextMessage message = new TextMessage(displayC);
-          Chat chat = new Chat(getID(), "Admin", message.getPayload(), getDate(), "/123");
-          template.convertAndSend("/123",  chat);
+          String[] room = message.getPayload().split(" ");
+          String mess = message.getPayload().replace(room[1], "");
+          Chat chat = new Chat(getID(), "Admin", mess, getDate(), room[1]);
+          template.convertAndSend(room[1],  chat);
           postToDatabase(chat);
         }
       }
