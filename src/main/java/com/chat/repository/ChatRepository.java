@@ -11,6 +11,7 @@ import com.chat.dao.Chat;
 public interface ChatRepository extends MongoRepository<Chat, String>{
 
 	Page<Chat> findAll(Pageable pageable);
+	Page<Chat> findAllByRoom(String chat, Pageable pageable);
   ArrayList<Chat> findAll();
 	Chat findTopByOrderByIdDesc();
 	ArrayList<Chat> findByIdGreaterThan(int id);

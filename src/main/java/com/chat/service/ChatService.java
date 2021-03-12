@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
 
 @Service
@@ -95,11 +96,11 @@ public class ChatService {
   }
 
 
-	public List<Chat> getFiveLatestChat(){
+	public List<Chat> getFiveLatestChat(String room){
 		Pageable pageable = PageRequest.of(0, 5, Sort.by(Order.desc("id")));
-
 		//last 5 chats
-		Page<Chat> allChatPage = chatRepository.findAll(pageable);
+    Page<Chat> allChatPage = chatRepository.findAllByRoom('/'+room, pageable);
+    System.out.println(allChatPage);
 		List<Chat> allChatArray = allChatPage.getContent();
 		ArrayList<Chat> chats = new ArrayList<>();
 		if(allChatArray.size() > 1){

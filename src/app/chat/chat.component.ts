@@ -17,7 +17,7 @@ export class ChatComponent implements OnInit {
   sesList:ChatMessageDto[] = this.messageService.msg;
   input;
   constructor(private http: HttpClient, public messageService: WebSocketService) {
-    this.getAllchat();
+    this.getAllchat(this.room);
 
   }
   sendMessage() {
@@ -31,8 +31,9 @@ export class ChatComponent implements OnInit {
 
   }
 
-  getAllchat(){
-    this.http.get('get/start').subscribe(data => this.list = data);
+  getAllchat(room){
+    console.log(room)
+    this.http.get('get/start?room=' + room.replace("/","")).subscribe(data => this.list = data);
   }
 
 
